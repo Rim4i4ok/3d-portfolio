@@ -1,9 +1,10 @@
-import React, { FC } from "react";
 import { motion } from "framer-motion";
+import { FC } from "react";
+import Tilt from "react-tilt";
+import { IService, services } from "../constants";
+import SectionWrapper from "../hoc";
 import { styles } from "../styles";
 import { fadeIn, textVariant } from "../utils/motion";
-import { IService, services } from "../constants";
-import Tilt from "react-tilt";
 
 const ServiceCard: FC<IService & { index: number }> = ({
   index,
@@ -12,7 +13,7 @@ const ServiceCard: FC<IService & { index: number }> = ({
 }) => (
   <Tilt
     className="xs:w-[250px] w-full"
-    options={{ max: 45, scale: 3, speed: 450 }}
+    options={{ max: 45, scale: 1, speed: 450 }}
   >
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
@@ -53,4 +54,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default SectionWrapper(About, "about");
