@@ -183,7 +183,15 @@ const experiences: IExperience[] = [
   },
 ];
 
-const testimonials = [
+export interface ITestimonial {
+  testimonial: string;
+  name: string;
+  designation: string;
+  company: string;
+  image: string;
+}
+
+const testimonials: ITestimonial[] = [
   {
     testimonial:
       "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
