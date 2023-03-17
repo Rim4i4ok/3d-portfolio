@@ -15,8 +15,48 @@ const Contact = () => {
   const [form, setForm] = useState<IForm>({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const formRef = useRef<IForm>();
-  const handleChange = (e) => {};
-  const handleSubmit = (e) => {};
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({ ...form, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        "emailjs_service_id",
+        "emailjs_template_id",
+        {
+          from_name: form.name,
+          to_name: "JavaScript Mastery",
+          from_email: form.email,
+          to_email: "sujata@jsmastery.pro",
+          message: form.message,
+        },
+        "emailjs_public_api"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("Thank you. I will get back to you as soon as possible.");
+
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.error(error);
+
+          alert("Ahh, something went wrong. Please try again.");
+        }
+      );
+  };
 
   return (
     <div
@@ -51,7 +91,7 @@ const Contact = () => {
             <input
               type="email"
               name="email"
-              value={form.name}
+              value={form.email}
               onChange={handleChange}
               placeholder="What's your email?"
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
